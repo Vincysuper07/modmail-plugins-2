@@ -158,12 +158,12 @@ class moderation(commands.Cog):
                 await ctx.send(embed = embed)
             else:
                 if reason == None:
-                    await member.ban(reason = f"Moderator - {ctx.message.author.name}#{ctx.message.author.discriminator}.\nReason - No Reason Provided.")
+                    await member.ban(reason = f"Moderatore - {ctx.message.author.name}#{ctx.message.author.discriminator}.\nMotivo - Nessun motivo dato.")
                     embed = discord.Embed(
                         title = "Ban",
-                        description = f"{member.mention} has been banned by {ctx.message.author.mention}.",
+                        description = f"{member.mention} è stato bannato da {ctx.message.author.mention}.",
                         color = self.blurple
-                    )
+                    ).set_image(url='https://imgur.com/V4TVpbC')
                     modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
                     if modlog == None:
                         return
