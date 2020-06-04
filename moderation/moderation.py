@@ -178,9 +178,9 @@ class moderation(commands.Cog):
                     await member.ban(reason = f"Moderator - {ctx.message.author.name}#{ctx.message.author.discriminator}.\nReason - {reason}")
                     embed = discord.Embed(
                         title = "Ban",
-                        description = f"{member.mention} has been banned by {ctx.message.author.mention} for {reason}",
+                        description = f"{member.mention} è stato bannato da {ctx.message.author.mention} per {reason}",
                         color = self.blurple
-                    )
+                    ).set_image(url='https://imgur.com/V4TVpbC'
                     await ctx.send(embed = embed)
                     modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
                     if modlog == None:
