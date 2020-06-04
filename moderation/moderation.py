@@ -163,7 +163,8 @@ class moderation(commands.Cog):
                         title = "Ban",
                         description = f"{member.mention} è stato bannato da {ctx.message.author.mention}.",
                         color = self.blurple
-                    ).set_image(url='https://imgur.com/V4TVpbC')
+                    )
+
                     modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
                     if modlog == None:
                         return
@@ -176,12 +177,12 @@ class moderation(commands.Cog):
                         await modlog.send(embed = embed)
                 else:
                     await member.ban(reason = f"Moderator - {ctx.message.author.name}#{ctx.message.author.discriminator}.\nReason - {reason}")
-                    embed = discord.Embed(
-                        title = "Ban",
-                        description = f"{member.mention} è stato bannato da {ctx.message.author.mention} per {reason}",
-                        color = self.blurple
-                    ).set_image(url='https://imgur.com/V4TVpbC')
-                    await ctx.send(embed = embed)
+                    #embed = discord.Embed(
+                    #    title = "Ban",
+                    #    description = f"{member.mention} è stato bannato da {ctx.message.author.mention} per {reason}",
+                    #    color = self.blurple
+                    #).set_image(url='https://imgur.com/V4TVpbC')
+                    await ctx.send(f'{member.name}#{member.discriminator} è stato bannato da {ctx.message.author.mention} per motivo \"{reason}\"\n\nhttps://imgur.com/V4TVpbC")
                     modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
                     if modlog == None:
                         return
