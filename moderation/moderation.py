@@ -182,7 +182,7 @@ class moderation(commands.Cog):
                     #    description = f"{member.mention} è stato bannato da {ctx.message.author.mention} per {reason}",
                     #    color = self.blurple
                     #).set_image(url='https://imgur.com/V4TVpbC')
-                    await ctx.send(f'{member.name}#{member.discriminator} è stato bannato da {ctx.message.author.mention} per motivo \"{reason}\"\n\nhttps://imgur.com/V4TVpbC")
+                    await ctx.send(f'{member.name}#{member.discriminator} è stato bannato da {ctx.message.author.mention} per motivo \"{reason}\"\n\nhttps://imgur.com/V4TVpbC')
                     modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
                     if modlog == None:
                         return
