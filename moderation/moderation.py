@@ -180,7 +180,7 @@ class moderation(commands.Cog):
                         title = "Ban",
                         description = f"{member.mention} è stato bannato da {ctx.message.author.mention} per {reason}",
                         color = self.blurple
-                    ).set_image(url='https://imgur.com/V4TVpbC'
+                    ).set_image(url='https://imgur.com/V4TVpbC')
                     await ctx.send(embed = embed)
                     modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
                     if modlog == None:
