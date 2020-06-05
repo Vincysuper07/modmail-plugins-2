@@ -3,6 +3,9 @@ from discord.ext import commands
 from core import checks
 from core.models import PermissionLevel
 
+counter = 0
+counter = counter + 1
+
 class moderation(commands.Cog):
 
     def __init__(self, bot):
@@ -32,16 +35,16 @@ class moderation(commands.Cog):
                 color = self.blurple
             )
             await ctx.send(embed = embed, delete_after = 5.0)
-            modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
-            if modlog == None:
+            vincylog = discord.utils.get(ctx.guild.text_channels, name = "vincylog")
+            if vincylog == None:
                 return
-            if modlog != None:
+            if vincylog != None:
                 embed = discord.Embed(
                     title = "Purge",
                     description = f"{amount} message(s) have been purged by {ctx.author.mention} in {ctx.message.channel.mention}",
                     color = self.blurple
                 )
-                await modlog.send(embed = embed)
+                await vincylog.send(embed = embed)
         if amount < 1:
             embed = discord.Embed(
                 title = "Purge Error",
@@ -74,6 +77,11 @@ class moderation(commands.Cog):
     @commands.command()
     @checks.has_permissions(PermissionLevel.MODERATOR)
     async def kick(self, ctx, member : discord.Member = None, *, reason = None):
+        with open('plugins/Vincysuper07/modmail-plugins-2/moderation-master/cases.txt','r') as file:
+            counter = int(file.read())+1
+        with open('plugins/Vincysuper07/modmail-plugins-2/moderation-master/cases.txt','w') as file:
+            file.write(str(counter))
+        case = open('plugins/Vincysuper07/modmail-plugins-2/moderation-master/cases.txt', 'r').read()
         if member == None:
             embed = discord.Embed(
                 title = "Kick Error",
@@ -91,41 +99,41 @@ class moderation(commands.Cog):
                 await ctx.send(embed = embed)
             else:
                 if reason == None:
-                    await member.kick(reason = f"Moderator - {ctx.message.author.name}#{ctx.message.author.discriminator}.\nReason - No reason proivded.")
+                    await member.kick(reason = f"Moderatore - {ctx.message.author.name}#{ctx.message.author.discriminator}.\nReason - Nessun motivo specificato.")
                     embed = discord.Embed(
                         title = "Kick",
-                        description = f"{member.mention} has been kicked by {ctx.message.author.mention}.",
+                        description = f"{member.name}#{member.discriminator} è stato kickato da {ctx.message.author.mention}.",
                         color = self.blurple
-                    )
+                    ).set_footer(text=f"Questo è il caso numero {case}")
                     await ctx.send(embed = embed)
-                    modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
-                    if modlog == None:
+                    vincylog = discord.utils.get(ctx.guild.text_channels, name = "vincylog")
+                    if vincylog == None:
                         return
-                    if modlog != None:
+                    if vincylog != None:
                         embed = discord.Embed(
                             title = "Kick",
                             description = f"{member.mention} has been kicked by {ctx.message.author.mention} in {ctx.message.channel.mention}.",
                             color = self.blurple
                         )
-                        await modlog.send(embed = embed)
+                        await vincylog.send(embed = embed)
                 else:
                     await member.kick(reason = f"Moderator - {ctx.message.author.name}#{ctx.message.author.discriminator}.\nReason - {reason}")
                     embed = discord.Embed(
                         title = "Kick",
-                        description = f"{member.mention} has been kicked by {ctx.message.author.mention} for {reason}",
+                        description = f"{member.mention} è stato kickato da {ctx.message.author.mention} per {reason}",
                         color = self.blurple
-                    )
+                    ).set_footer(text=f'Questo è il caso numero {case}.')
                     await ctx.send(embed = embed)
-                    modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
-                    if modlog == None:
+                    vincylog = discord.utils.get(ctx.guild.text_channels, name = "vincylog")
+                    if vincylog == None:
                         return
-                    if modlog != None:
+                    if vincylog != None:
                         embed = discord.Embed(
                             title = "Kick",
                             description = f"{member.mention} has been kicked by {ctx.message.author.mention} in {ctx.message.channel.mention} for {reason}",
                             color = self.blurple
                         )
-                        await modlog.send(embed = embed)
+                        await vincylog.send(embed = embed)
 
     @kick.error
     async def kick_error(self, ctx, error):
@@ -165,16 +173,16 @@ class moderation(commands.Cog):
                         color = self.blurple
                     )
 
-                    modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
-                    if modlog == None:
+                    vincylog = discord.utils.get(ctx.guild.text_channels, name = "vincylog")
+                    if vincylog == None:
                         return
-                    if modlog != None:
+                    if vincylog != None:
                         embed = discord.Embed(
                             title = "Ban",
                             description = f"{member.mention} has been banned by {ctx.message.author.mention}.",
                             color = self.blurple
                         )
-                        await modlog.send(embed = embed)
+                        await vincylog.send(embed = embed)
                 else:
                     await member.ban(reason = f"Moderator - {ctx.message.author.name}#{ctx.message.author.discriminator}.\nReason - {reason}")
                     #embed = discord.Embed(
@@ -183,16 +191,16 @@ class moderation(commands.Cog):
                     #    color = self.blurple
                     #).set_image(url='https://imgur.com/V4TVpbC')
                     await ctx.send(f'{member.name}#{member.discriminator} è stato bannato da {ctx.message.author.mention} per motivo \"{reason}\"\n\nhttps://imgur.com/V4TVpbC')
-                    modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
-                    if modlog == None:
+                    vincylog = discord.utils.get(ctx.guild.text_channels, name = "vincylog")
+                    if vincylog == None:
                         return
-                    if modlog != None:
+                    if vincylog != None:
                         embed = discord.Embed(
                             title = "Ban",
                             description = f"{member.mention} has been banned by {ctx.message.author.mention} in {ctx.message.channel.mention} for {reason}",
                             color = self.blurple
                         )
-                        await modlog.send(embed = embed)
+                        await vincylog.send(embed = embed)
 
     @ban.error
     async def ban_error(self, ctx, error):
@@ -228,16 +236,16 @@ class moderation(commands.Cog):
                     )
                     await ctx.guild.unban(user)
                     await ctx.send(embed = embed)
-                    modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
-                    if modlog == None:
+                    vincylog = discord.utils.get(ctx.guild.text_channels, name = "vincylog")
+                    if vincylog == None:
                         return
-                    if modlog != None:
+                    if vincylog != None:
                         embed = discord.Embed(
                             title = "Ban",
                             description = f"{user.mention} has been unbanned by {ctx.message.author.mention} in {ctx.message.channel.mention}.",
                             color = self.blurple
                         )
-                        await modlog.send(embed = embed)
+                        await vincylog.send(embed = embed)
 
 
     @unban.error
@@ -283,16 +291,16 @@ class moderation(commands.Cog):
                         color = self.blurple
                     )
                     await ctx.send(embed = embed)
-                    modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
-                    if modlog == None:
+                    vincylog = discord.utils.get(ctx.guild.text_channels, name = "vincylog")
+                    if vincylog == None:
                         return
-                    if modlog != None:
+                    if vincylog != None:
                         embed = discord.Embed(
                             title = "Mute",
                             description = f"{member.mention} has been muted by {ctx.message.author.mention} in {ctx.message.channel.mention}.",
                             color = self.blurple
                         )
-                        await modlog.send(embed = embed)
+                        await vincylog.send(embed = embed)
                 else:
                     role = discord.utils.get(ctx.guild.roles, name = "Muted")
                     if role == None:
@@ -306,16 +314,16 @@ class moderation(commands.Cog):
                         color = self.blurple
                     )
                     await ctx.send(embed = embed)
-                    modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
-                    if modlog == None:
+                    vincylog = discord.utils.get(ctx.guild.text_channels, name = "vincylog")
+                    if vincylog == None:
                         return
-                    if modlog != None:
+                    if vincylog != None:
                         embed = discord.Embed(
                             title = "Mute",
                             description = f"{member.mention} has been muted by {ctx.message.author.mention} in {ctx.message.channel.mention} for {reason}",
                             color = self.blurple
                         )
-                        await modlog.send(embed = embed)
+                        await vincylog.send(embed = embed)
 
     @mute.error
     async def mute_error(self, ctx, error):
@@ -348,16 +356,16 @@ class moderation(commands.Cog):
                     color = self.blurple
                 )
                 await ctx.send(embed = embed)
-                modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
-                if modlog == None:
+                vincylog = discord.utils.get(ctx.guild.text_channels, name = "vincylog")
+                if vincylog == None:
                     return
-                if modlog != None:
+                if vincylog != None:
                     embed = discord.Embed(
                         title = "Unmute",
                         description = f"{member.mention} has been unmuted by {ctx.message.author.mention} in {ctx.message.channel.mention}.",
                         color = self.blurple
                     )
-                    await modlog.send(embed = embed)
+                    await vincylog.send(embed = embed)
             else:
                 embed = discord.Embed(
                     title = "Unmute Error",
@@ -397,7 +405,7 @@ class moderation(commands.Cog):
                 await ctx.send(embed = embed)
             else:
                 if reason == None:
-                    await member.ban(reason = f"Softban by {ctx.message.author.name}#{ctx.message.author.discriminator}.\nReason - No Reason Provided.")
+                    await member.ban(reason = f"Softbannato da {ctx.message.author.name}#{ctx.message.author.discriminator}.\nReason - No Reason Provided.")
                     await member.unban()
                     embed = discord.Embed(
                         title = "Softban",
@@ -405,16 +413,16 @@ class moderation(commands.Cog):
                         color = self.blurple
                     )
                     await ctx.send(embed = embed)
-                    modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
-                    if modlog == None:
+                    vincylog = discord.utils.get(ctx.guild.text_channels, name = "vincylog")
+                    if vincylog == None:
                         return
-                    if modlog != None:
+                    if vincylog != None:
                         embed = discord.Embed(
                             title = "Softban",
                             description = f"{member.mention} has been softbanned by {ctx.message.author.mention}.",
                             color = self.blurple
                         )
-                        await modlog.send(embed = embed)
+                        await vincylog.send(embed = embed)
                 else:
                     await member.ban(reason = f"Softban by {ctx.message.author.name}#{ctx.message.author.discriminator}.\nReason - {reason}.")
                     await member.unban()
@@ -424,16 +432,16 @@ class moderation(commands.Cog):
                         color = self.blurple
                     )
                     await ctx.send(embed = embed)
-                    modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
-                    if modlog == None:
+                    vincylog = discord.utils.get(ctx.guild.text_channels, name = "vincylog")
+                    if vincylog == None:
                         return
-                    if modlog != None:
+                    if vincylog != None:
                         embed = discord.Embed(
                             title = "Softban",
                             description = f"{member.mention} has been softbanned by {ctx.message.author.mention} for {reason}.",
                             color = self.blurple
                         )
-                        await modlog.send(embed = embed)
+                        await vincylog.send(embed = embed)
 
     @softban.error
     async def softban_error(self, ctx, error):
@@ -460,16 +468,16 @@ class moderation(commands.Cog):
         )
         embed.set_image(url = "https://cdn.discordapp.com/attachments/600843048724987925/600843407228928011/tenor.gif")
         await new_channel.send(embed = embed, delete_after = 30.0)
-        modlog = discord.utils.get(ctx.guild.text_channels, name = "modlog")
-        if modlog == None:
+        vincylog = discord.utils.get(ctx.guild.text_channels, name = "vincylog")
+        if vincylog == None:
             pass
-        if modlog != None:
+        if vincylog != None:
             embed = discord.Embed(
                 title = "Nuke",
                 description = f"{ctx.message.author.mention} has nuked {new_channel.mention}.",
                 color = self.blurple
             )
-            await modlog.send(embed = embed)
+            await vincylog.send(embed = embed)
 
     @nuke.error
     async def nuke_error(self, ctx, error):
