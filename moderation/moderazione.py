@@ -320,7 +320,7 @@ class Moderazione(commands.Cog):
             pass
         if vincylog != None:
             embed = discord.Embed(
-                title = "Detonazione
+                title = "Detonazione"
                 description = f"{ctx.message.author.mention} ha detonato {new_channel.mention}",
                 color = self.blurple,
             )
