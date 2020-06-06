@@ -45,7 +45,7 @@ class Moderazione(commands.Cog):
             await ctx.send(f"{error} Non puoi eliminare meno di 1 messaggio!", delete_after=5.0)
             await ctx.message.delete()
         if amount > max_purge:
-                await ctx.send(f"{error} | Non puoi eliminare più di 2000 messaggi!", delete_after=5.0)
+            await ctx.send(f"{error} | Non puoi eliminare più di 2000 messaggi!", delete_after=5.0)
             await ctx.message.delete()
 
     @purge.error
