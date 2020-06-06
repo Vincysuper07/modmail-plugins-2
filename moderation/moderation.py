@@ -30,9 +30,9 @@ class Moderazione(commands.Cog):
 
     #Purge command
     @commands.command(aliases = ["clear"])
-    """Elimina una quantita di messaggi"""
     @checks.has_permissions(PermissionLevel.MODERATOR)
     async def purge(self, ctx, amount = 10):
+	"""Elimina una quantità di messaggi"""
         max_purge = 2000
         if amount >= 1 and amount <= max_purge:
             await ctx.channel.purge(limit = amount + 1)
