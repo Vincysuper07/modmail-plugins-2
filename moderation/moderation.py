@@ -42,10 +42,7 @@ class Moderazione(commands.Cog):
             if vincylog != None:
                 await vincylog.send(f"{trash} | {amount} messaggi sono stati eliminati da {ctx.author.mention} in {ctx.message.channel.mention}",
         if amount < 1:
-                await ctx.send(
-                    f"{error} Non puoi eliminare meno di 1 messaggio!",
-                    delete_after=5.0,
-                )
+            await ctx.send(f"{error} Non puoi eliminare meno di 1 messaggio!", delete_after=5.0)
             await ctx.message.delete()
         if amount > max_purge:
                 await ctx.send(f"{error} | Non puoi eliminare più di 2000 messaggi!", delete_after=5.0)
