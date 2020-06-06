@@ -30,7 +30,7 @@ class Moderazione(commands.Cog):
 
     #Purge command
     @commands.command(aliases = ["clear"])
-    """Elimina una quantità di messaggi"""
+    """Elimina una quantita di messaggi"""
     @checks.has_permissions(PermissionLevel.MODERATOR)
     async def purge(self, ctx, amount = 10):
         max_purge = 2000
